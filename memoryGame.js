@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", () =>{
     // create variables
-    var start = document.getElementById("start");
-    var reset = document.getElementById("reset");
-    var fiveMinutes = 60 * 1;
-    var display = document.querySelector('#time');
-    const grid = document.querySelector(".grid");
-    var cardsChosen = [];
-    var cardsChosenId = [];
-    var cardsWon = [];
-    var resultDisplay = document.querySelector("#result");
-    var won = false;
-    var playing = false;
-    var stopClock = false;
+    const start = document.getElementById("start"),
+          reset = document.getElementById("reset"),
+          display = document.querySelector('#time'),
+          grid = document.querySelector(".grid"),
+          resultDisplay = document.querySelector("#result");
+
+    let fiveMinutes = 60 * 1,
+        cardsChosen = [],
+        cardsChosenId = [],
+        cardsWon = [],
+        won = false,
+        playing = false,
+        stopClock = false;
+
     //create the array which represents your deck of cards
     const cardArray = [
         {
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         reset.style.display = "flex";
     })
     //restart the game when the player commands
-    reset.addEventListener("click", function(){
+    reset.addEventListener("click", () => {
         location = location;
     })
     //create an element for each object in the card array
@@ -92,9 +94,10 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     //check for matches
     function checkForMatch(){
-        var cards = document.querySelectorAll("img");
-        const optionOneId = cardsChosenId[0];
-        const optionTwoId = cardsChosenId[1];
+        const cards = document.querySelectorAll("img"),
+              optionOneId = cardsChosenId[0],
+              optionTwoId = cardsChosenId[1];
+
         if(cardsChosen[0] === cardsChosen[1]){
             //remove the cards from the board and add them to the cardsWon array
             alert("You've found a match!");
@@ -127,7 +130,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     //flip the card card the player has chosen
     function flipCard(){
         if(playing === true){
-            var cardId = this.getAttribute("data-id");
+            let cardId = this.getAttribute("data-id");
+
             cardsChosen.push(cardArray[cardId].name);
             cardsChosenId.push(cardId);
             this.setAttribute("src", cardArray[cardId].img);
@@ -139,7 +143,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     // flip all the cards over once the player has won
     function flipAllcards(){
-        var cards = document.querySelectorAll("img");
+        let cards = document.querySelectorAll("img");
+
         for(i = 0; i < cards.length; i++){
             cards[i].setAttribute("src", cardArray[i].img);
             cards[i].classList.add("outline");
@@ -147,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     // countdown timer
     function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
+        let timer = duration, minutes, seconds;
         setInterval(function () {
             if(won != true && stopClock != true){
                 minutes = parseInt(timer / 60, 10);
@@ -159,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 display.textContent = minutes + ":" + seconds;
     
                 if (--timer < 0) {
-                    var cards = document.querySelectorAll("img");
+                    let cards = document.querySelectorAll("img");
                     playing = false;
                     stopClock = true;
                     if (cardsChosenId.length > 0){
@@ -173,9 +178,10 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     //reorder the objects in the cardArray
     function shuffleArray(arr) {
-        for (var i = arr.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = arr[i];
+        for (let i = arr.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1)),
+                temp = arr[i];
+                
             arr[i] = arr[j];
             arr[j] = temp;
         }
